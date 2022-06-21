@@ -148,3 +148,9 @@ void mian(){
     - 可读性(Readability)
     - 健壮性(Robustness)
     - 高效性(Efficiency)
+
+## 算法效率两方面的考虑
+    - 时间效率：算法所耗费的时间
+    - 空间效率：执行过程中所耗费的存储空间
+
+
