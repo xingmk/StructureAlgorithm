@@ -1,77 +1,57 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
-class Solution {
+// 商品类
+class Product {
+public:
+	Product(string name, int price) : name(name), price(price) {}
 	
-	// 顺序查找
-	bool sequenceSearch (vector<int>& nums, int target) {
-		for (int num : nums) {
-			if (num == target) return true;
-		}
-	return false;
+	string getName() const {
+		return name;
 	}
 	
-	// 折半查找
-	bool binarySearch (vector<int>& nums, int target) {
-		int lo = 0; 
-		int hi = nums.size() - 1;
-		while (lo < hi) {
-			int mid = lo + (hi - lo) / 2;
-			if (nums[mid] == target) return true;
-			if (nums[mid] > target) hi = mid - 1;
-			if (nums[mid] < target) lo = mid + 1;
-		}
-	return false;
-	}
-
-	// 分块查找
-		typedef struct
-	{
-		int maxKey;     
-		int address;    
-	}Index;
-	
-	int blockSearch(vector<int> nums, Index* index, int indexLen, int key)
-	{
-		int lo = 0, hi = nums.size() - 1;
-		int mid = lo + (hi - lo) / 2;
-		
-		while (lo < hi) {
-			if (key == index[mid].maxKey) {
-				break;
-			}
-			else if (key < index[mid].maxKey) {
-				hi = mid;
-			}
-			else {
-				lo = mid + 1;
-			}
-			mid = lo + (hi - lo) / 2;
-		}
-
-		int i, start = index[mid].address, end;
-	
-		if (mid == indexLen - 1) {
-		end = nums.size();
-		} else {
-		end = index[mid + 1].address;
-		}
-	
-		for (i = start; i < end; i++) {
-			if (key == nums[i]) {
-				return i;
-			}
-		}
-	return -1;
+	int getPrice() const {
+		return price;
 	}
 	
+private:
+	string name;
+	int price;
 };
 
+// 商城管理系统类
+class Shop {
+public:
+	void addProduct(const Product& product) {
+		products.push_back(product);
+	}
+	
+	void displayProducts() const {
+		cout << "商城商品列表：" << endl;
+		for (const auto& product : products) {
+			cout << "名称：" << product.getName() << ", 价格：" << product.getPrice() << "元" << endl;
+		}
+	}
+	
+private:
+	vector<Product> products;
+};
 
 int main() {
+	Shop shop;
 	
-	vector<int> nums;
+	// 添加商品
+	Product product1("商品1", 100);
+	Product product2("商品2", 200);
+	shop.addProduct(product1);
+	shop.addProduct(product2);
+	
+	// 显示商品列表
+	shop.displayProducts();
 	
 	return 0;
-}	
+}
+
